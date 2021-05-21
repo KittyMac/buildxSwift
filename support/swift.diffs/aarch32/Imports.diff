@@ -1,0 +1,26 @@
+diff --git a/include/swift/AST/ImportCache.h b/include/swift/AST/ImportCache.h
+index 90ea89bc3b4..aec2dc245fd 100644
+--- a/swift/include/swift/AST/ImportCache.h
++++ b/swift/include/swift/AST/ImportCache.h
+@@ -100,7 +100,7 @@ public:
+   }
+ };
+ 
+-class alignas(ModuleDecl::ImportedModule) ImportCache {
++class alignas(8) ImportCache {
+   ImportCache(const ImportCache &) = delete;
+   void operator=(const ImportCache &) = delete;
+ 
+diff --git a/lib/ClangImporter/ImportType.cpp b/lib/ClangImporter/ImportType.cpp
+index 08238b491c2..7bafbbac38b 100644
+--- a/swift/lib/ClangImporter/ImportType.cpp
++++ b/swift/lib/ClangImporter/ImportType.cpp
+@@ -506,7 +506,7 @@ namespace {
+       if (size > 4096)
+         return Type();
+       
+-      SmallVector<TupleTypeElt, 8> elts{size, elementType};
++      SmallVector<TupleTypeElt, 8> elts{static_cast<size_t>(size), elementType};
+       return TupleType::get(elts, elementType->getASTContext());
+     }
+ 

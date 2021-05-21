@@ -1,0 +1,12 @@
+diff --git a/cmake/modules/AddSwift.cmake b/cmake/modules/AddSwift.cmake
+index 550b4598484..de34e487d21 100644
+--- a/swift/cmake/modules/AddSwift.cmake
++++ b/swift/cmake/modules/AddSwift.cmake
+@@ -398,6 +398,7 @@ function(_add_host_variant_link_flags)
+     MACCATALYST_BUILD_FLAVOR  "${LFLAGS_MACCATALYST_BUILD_FLAVOR}")
+   if("${LFLAGS_SDK}" STREQUAL "LINUX")
+     list(APPEND link_libraries "pthread" "dl")
++    list(APPEND link_libraries "atomic")
+   elseif("${LFLAGS_SDK}" STREQUAL "FREEBSD")
+     list(APPEND link_libraries "pthread")
+   elseif("${LFLAGS_SDK}" STREQUAL "CYGWIN")
